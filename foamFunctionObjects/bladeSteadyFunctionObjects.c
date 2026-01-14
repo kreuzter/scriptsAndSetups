@@ -126,14 +126,3 @@ forces1
     executeControl  writeTime;
     writeControl    writeTime;
 }
-massFlux1
-{
-  type            exprField;
-  libs            (fieldFunctionObjects);
-  field           massFlux;
-  expression      "U.x()*rho";
-  dimensions      [ kg/(s*m*m) ];
-
-  executeControl  writeTime;
-  writeControl    writeTime;
-}

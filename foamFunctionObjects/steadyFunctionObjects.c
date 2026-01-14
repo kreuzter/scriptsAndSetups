@@ -12,7 +12,7 @@ turbulenceFields1
   executeControl  writeTime;
   writeControl    writeTime;
 }
-totalPressure1
+totalPressure_
 {
   type            exprField;
   libs            (fieldFunctionObjects);
@@ -23,7 +23,7 @@ totalPressure1
   executeControl  writeTime;
   writeControl    writeTime;
 }
-entropy1
+entropy_
 {
   type            exprField;
   libs            (fieldFunctionObjects);
@@ -34,11 +34,57 @@ entropy1
   executeControl  writeTime;
   writeControl    writeTime;
 }
-wallShearStress1
+massFlux_
 {
-  type            wallShearStress;
+  type            exprField;
   libs            (fieldFunctionObjects);
-  patches         ("blade*|wall*");
+  field           massFlux;
+  expression      "U.x()*rho";
+  dimensions      [ kg/(s*m*m) ];
+
+  executeControl  writeTime;
+  writeControl    writeTime;
+}
+flowAngle_
+{
+  type            exprField;
+  libs            (fieldFunctionObjects);
+  field           flowAngle;
+  expression      "atan2( U.y(), U.x() )*180/3.1416";
+  dimensions      [ Hz ];
+
+  executeControl  writeTime;
+  writeControl    writeTime;
+}
+eulerInvariantI_
+{
+  type            exprField;
+  libs            (fieldFunctionObjects);
+  field           eulerInvariantI;
+  expression      "mag(U) - (2*sqrt(1.4*287.0*T))/(0.4)";
+  dimensions      [ m/s ];
+
+  executeControl  writeTime;
+  writeControl    writeTime;
+}
+eulerInvariantII_
+{
+  type            exprField;
+  libs            (fieldFunctionObjects);
+  field           eulerInvariantII;
+  expression      "log(p/pow(rho,1.4))";
+  dimensions      [ m/s ];
+
+  executeControl  writeTime;
+  writeControl    writeTime;
+}
+eulerInvariantIII_
+{
+  type            exprField;
+  libs            (fieldFunctionObjects);
+  field           eulerInvariantIII;
+  expression      "mag(U) + (2*sqrt(1.4*287.0*T))/(0.4)";
+  dimensions      [ m/s ];
 
   executeControl  writeTime;
   writeControl    writeTime;
