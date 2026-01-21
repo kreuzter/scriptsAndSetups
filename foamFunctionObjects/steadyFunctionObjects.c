@@ -51,7 +51,6 @@ flowAngle_
   libs            (fieldFunctionObjects);
   field           flowAngle;
   expression      "atan2( U.y(), U.x() )*180/3.1416";
-  dimensions      [ Hz ];
 
   executeControl  writeTime;
   writeControl    writeTime;
@@ -73,7 +72,6 @@ eulerInvariantII_
   libs            (fieldFunctionObjects);
   field           eulerInvariantII;
   expression      "log(p/pow(rho,1.4))";
-  dimensions      [ m/s ];
 
   executeControl  writeTime;
   writeControl    writeTime;
