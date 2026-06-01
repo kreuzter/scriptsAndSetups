@@ -8,9 +8,8 @@ set grid
 set key outside right top
 set format y "10^{%T}"
 
-# Robust extractor for both LUSGS and smoothSolver lines:
-#   ... Solving for <var>, Initial residual = <value>, ...
-res(var) = sprintf("< awk '/Solving for %s,/{ s=$0; sub(/^.*Initial residual = /, \"\", s); sub(/,.*/, \"\", s); print s }' log", var)
+# Robust extractor: prefer Initial relative residual when present, else Initial residual
+res(var) = sprintf("< awk '/Solving for %s,/{ s=$0; if (s ~ /Initial relative residual =/) { sub(/^.*Initial relative residual = /, \"\", s); } else { sub(/^.*Initial residual = /, \"\", s); } sub(/,.*/, \"\", s); print s }' log", var)
 
 plot \
      "< awk '/GMRES iteration: 0   Residual:/{print $NF}' log" using 0:1 lc 1 lw 1 title 'GMRES' with lines, \
